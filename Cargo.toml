@@ -1,0 +1,12 @@
+[package]
+name = "amundsen"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+gdnative = { git = "https://github.com/godot-rust/godot-rust.git" }
+
+[lib]
+crate-type = ["cdylib"]
+
+
