@@ -1,4 +1,6 @@
-use gdnative::api::{Camera, InputEvent, InputEventMouse, InputEventMouseMotion, Spatial};
+use gdnative::api::{
+    Camera, InputEvent, InputEventMouse, InputEventMouseMotion, KinematicBody, Spatial,
+};
 use gdnative::prelude::*;
 use std::cmp::{max, min};
 
@@ -8,19 +10,38 @@ pub struct PlayerCamera {}
 
 #[methods]
 impl PlayerCamera {
-    fn process_camera_movement(&mut self, event: Ref<InputEventMouseMotion>, owner: &Camera) {
-        let rotation_helper = unsafe { 
-            owner.get_node_as::<Spatial>("../").unwrap() 
-        };
-
-        let event = unsafe { 
-            event.assume_safe() 
-        };
-
+    fn process_camera_movement(&mut self, event: Ref<InputEventMouseMotion>, camera: &Camera) {
+        let rotation_helper = unsafe { camera.get_node_as::<Spatial>("../").unwrap() };
+        let event = unsafe { event.assume_safe() };
         let relative_rotation = event.relative();
 
-        let rotation_y = f64::from(relative_rotation.y) * 0.02;
-        rotation_helper.rotate_x(rotation_y.to_radians());
+        let player_body = unsafe {
+            camera
+                .get_parent()
+                .unwrap()
+                .assume_safe()
+                .get_parent()
+                .unwrap()
+                .assume_safe()
+                .cast::<KinematicBody>()
+                .unwrap()
+        };
+        
+
+        //Build relative rotation
+        let rotation_y = (-f32::from(relative_rotation.y) * 0.04).to_radians();
+        let rotation_x = (-f64::from(relative_rotation.x) * 0.04).to_radians();
+
+        //Rotate camera
+        rotation_helper.rotate_x(f64::from(rotation_y));
+
+        //Rotate body
+        player_body.rotate_y(rotation_x);
+
+        //Clamp the view range (up, down)
+        let mut camera_rotation = rotation_helper.rotation_degrees();
+        camera_rotation.x = camera_rotation.x.clamp(-80.0, 80.0);
+        rotation_helper.set_rotation_degrees(camera_rotation);
     }
 
     #[export]
