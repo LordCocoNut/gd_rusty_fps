@@ -1,8 +1,7 @@
 use gdnative::api::{
-    Camera, InputEvent, InputEventMouse, InputEventMouseMotion, KinematicBody, Spatial,
+    Camera, InputEvent, InputEventMouseMotion, KinematicBody, Spatial,
 };
 use gdnative::prelude::*;
-use std::cmp::{max, min};
 
 #[derive(NativeClass)]
 #[inherit(Camera)]
@@ -10,6 +9,10 @@ pub struct PlayerCamera {}
 
 #[methods]
 impl PlayerCamera {
+    fn new(_owner: &Camera) -> Self {
+        PlayerCamera {}
+    }
+
     fn process_camera_movement(&mut self, event: Ref<InputEventMouseMotion>, camera: &Camera) {
         let rotation_helper = unsafe { camera.get_node_as::<Spatial>("../").unwrap() };
         let event = unsafe { event.assume_safe() };
@@ -49,9 +52,6 @@ impl PlayerCamera {
         Input::godot_singleton().set_mouse_mode(Input::MOUSE_MODE_CAPTURED);
     }
 
-    fn new(_owner: &Camera) -> Self {
-        PlayerCamera {}
-    }
 
     #[export]
     fn _input(&mut self, owner: &Camera, event: Ref<InputEvent>) {
