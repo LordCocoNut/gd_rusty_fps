@@ -14,5 +14,5 @@ We have to provide these features:
 
 
 - [ ] implement jumping for player controller
-
--> this library should then be used to create a simple horror adventure game for demonstration.
+<hr>
+<b> this library should then be used to create a simple horror adventure game for demonstration.<b>
