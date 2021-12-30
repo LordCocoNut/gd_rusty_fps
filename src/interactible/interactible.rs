@@ -16,6 +16,7 @@ impl Interactible {
         }
     }
 
+    #[export]
     pub fn on_hover(&self, _owner: &StaticBody) {
         godot_print!("Im interactible!");
     }

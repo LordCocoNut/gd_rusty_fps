@@ -1,5 +1,7 @@
+
+use super::player_camera_focus::PlayerCameraFocus;
 use gdnative::api::{
-    Camera, InputEvent, InputEventMouseMotion, KinematicBody, Spatial,
+    Camera, InputEvent, InputEventMouseMotion, KinematicBody, Spatial, RayCast
 };
 use gdnative::prelude::*;
 
@@ -59,4 +61,5 @@ impl PlayerCamera {
             self.process_camera_movement(event, owner);
         }
     }
+
 }

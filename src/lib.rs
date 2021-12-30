@@ -12,7 +12,7 @@ fn init(handle: InitHandle) {
     handle.add_class::<PlayerController>();
     handle.add_class::<PlayerCamera>();
     handle.add_class::<Interactible>();
-    handle.add_class::<PlayerCameraFocus>()
+    handle.add_class::<PlayerCameraFocus>();
 }
 
 godot_init!(init);
