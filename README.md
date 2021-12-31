@@ -16,3 +16,12 @@ We have to provide these features:
 - [ ] implement jumping for player controller
 <hr>
 <b> this library should then be used to create a simple horror adventure game for demonstration.<b>
+
+DOC
+<hr>
+Interactible types:
+    - [] Pickupable
+        items that can be added to inventory on pickup
+    - [] Switch
+        item that triggers run action on 
+    - [] Openable
