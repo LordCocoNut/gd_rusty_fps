@@ -16,16 +16,21 @@ pub struct Interactible {
     interaction_label: String,
 
     #[property]
+    desc_label: String,
+
+    #[property]
     mob_type: String,
 }
 
 #[methods]
 impl Interactible {
+ 
     fn new(_owner: &PhysicsBody) -> Self {
         Interactible {
             name_label: String::from(""),
             inspect_label: String::from(""),
             interaction_label: String::from(""),
+            desc_label: String::from(""),
             mob_type: String::from(""),
         }
     }

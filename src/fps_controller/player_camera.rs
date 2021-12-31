@@ -15,7 +15,7 @@ impl PlayerCamera {
         PlayerCamera {}
     }
 
-    fn process_camera_movement(&mut self, event: Ref<InputEventMouseMotion>, camera: &Camera) {
+    fn process_camera_movement(&mut self, event: Ref<InputEventMouseMotion>, camera: &Camera) {        
         let rotation_helper = unsafe { camera.get_node_as::<Spatial>("../").unwrap() };
         let event = unsafe { event.assume_safe() };
         let relative_rotation = event.relative();

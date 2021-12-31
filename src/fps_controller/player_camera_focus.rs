@@ -3,12 +3,17 @@ use gdnative::prelude::*;
 
 #[derive(NativeClass)]
 #[inherit(RayCast)]
+#[register_with(Self::register_signals)]
 pub struct PlayerCameraFocus {}
 
 #[methods]
 impl PlayerCameraFocus {
     fn new(_owner: &RayCast) -> Self {
         PlayerCameraFocus {}
+    }
+
+    fn register_signals(builder: &ClassBuilder<Self>) {
+        builder.signal("picked_up_item").done();
     }
 
     fn handle_item_focus(&self, owner: &RayCast) {
@@ -21,6 +26,8 @@ impl PlayerCameraFocus {
             if Input::is_action_just_pressed(input, "interact", false) {
                 match collider.get("mob_type").to_string().as_str() {
                     "Pickupable" => unsafe {
+                        //emit picked up item here
+                        owner.emit_signal("picked_up_item", &[Variant::new(collider)]);
                         collider.call("interact", &[]);
                     },
                     "Openable" => unsafe {
