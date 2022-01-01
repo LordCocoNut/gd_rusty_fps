@@ -43,8 +43,8 @@ note: You have to also create move_forward, move_backward, move_left, move_right
 PlayerCameraFocus <br/>
 Create RayCast as child of Camera in your character scene and name it Focus. Add this class as gdnative in same manner as with PlayerController, PlayerCamera. You are now posssessing functionality to interact with world.
 
-Interactible <br/>
-This class can be added to PhysicsBody and its derivates. By providing this to it, you gain access to properties like MobType in Node inspector. There you can provide one of MobTypes as text, to provide functionality like pickup, open. (Is in progress and not fully implemented, so doesnt work completely now, but provides basic mechanisms)
+Interactibles -> no providing Door, Pickupable<br/>
+Simply create scene with a static body and provide one of these native classes from our library. You then have acces to exported properties from within the editor, so you can define basics like name, inspec labels etc. Every type has its own attributes and interactions are connected to PlayerCameraFocus, from which these events are called (open, close etc). Later on, we will add more of interactibles and also provide stuff like lock possibility for doors. Doors will implement attributes (key_id, switch_id), which will be proccessed to allow door unlocking.
 
 Inventory <br/>
 Create Spatial with name Inventory as child of KinematicBody in your character scene. It should connect itself to raycast on picked_up_item signal so items can be added to inventory on pickup event.
