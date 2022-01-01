@@ -26,14 +26,11 @@ impl PlayerCameraFocus {
             if Input::is_action_just_pressed(input, "interact", false) {
                 match collider.get("mob_type").to_string().as_str() {
                     "Pickupable" => unsafe {
-                        //emit picked up item here
+                        //emit picked up item event here
                         owner.emit_signal("picked_up_item", &[Variant::new(collider)]);
                         collider.call("interact", &[]);
                     },
-                    "Openable" => unsafe {
-                        collider.call("on_open", &[]);
-                    },
-                    _ => godot_print!("I dont know what to do with this"),
+                    _ => unsafe {collider.call("interact", &[]);}
                 }
             }
 
@@ -49,7 +46,7 @@ impl PlayerCameraFocus {
     }
 
     #[export]
-    fn _physics_process(&self, owner: &RayCast, delta: f64) {
+    fn _physics_process(&self, owner: &RayCast, _delta: f64) {
         self.handle_item_focus(owner);
     }
 }

@@ -1,7 +1,7 @@
 
 use super::player_camera_focus::PlayerCameraFocus;
 use gdnative::api::{
-    Camera, InputEvent, InputEventMouseMotion, KinematicBody, Spatial, RayCast
+    Camera, InputEvent, InputEventMouseMotion, KinematicBody, Spatial
 };
 use gdnative::prelude::*;
 
