@@ -34,7 +34,7 @@ impl Pickupable {
         let mut string = String::from("Picked up: ");
         string.push_str(owner.get("name_label").to_string().as_str());
         godot_print!("{}", string);
-        unsafe {owner.get_parent().unwrap().assume_safe()}.queue_free();
+        owner.queue_free();
     }
 }
 
