@@ -6,7 +6,8 @@ use gdnative::prelude::*;
 pub struct Door {
     #[property]
     name_label: String,
-
+    
+    #[property(no_editor)]
     mob_type: String,
 
     #[property]

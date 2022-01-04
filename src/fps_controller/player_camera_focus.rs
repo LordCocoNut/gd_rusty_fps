@@ -21,7 +21,6 @@ impl PlayerCameraFocus {
         if owner.is_colliding() {
             let collider = unsafe { owner.get_collider().unwrap().assume_safe() };
             let input = Input::godot_singleton();
-
             //Lets handle interaction
             if Input::is_action_just_pressed(input, "interact", false) {
                 match collider.get("mob_type").to_string().as_str() {

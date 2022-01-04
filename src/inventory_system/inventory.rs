@@ -1,4 +1,4 @@
-use gdnative::api::{PhysicsBody, Spatial, RayCast};
+use gdnative::api::{PhysicsBody, Node, RayCast};
 use gdnative::core_types::Variant;
 use gdnative::prelude::*;
 use std::collections::HashMap;
@@ -10,24 +10,22 @@ pub struct InventoryItem {
 }
 
 #[derive(NativeClass)]
-#[inherit(Spatial)]
+#[inherit(Node)]
 pub struct Inventory {
     storage: HashMap<String, InventoryItem>,
 }
 
 #[methods]
 impl Inventory {
-
-
-    fn new(_owner: &Spatial) -> Self {
+    fn new(_owner: &Node) -> Self {
         Inventory {
             storage: HashMap::new(),
         }
     }
 
     #[export]
-    fn _ready(&self, owner: TRef<Spatial>) {
-        let camera_focus = unsafe {owner.get_node_as::<RayCast>("../CameraRotationHelper/Camera/Focus").unwrap()};
+    fn _ready(&self, owner: TRef<Node>) {
+        let camera_focus = unsafe {owner.get_node_as::<RayCast>("../Camera/Focus").unwrap()};
         camera_focus.connect(
             "picked_up_item",
             owner,
@@ -38,7 +36,7 @@ impl Inventory {
     }
 
     #[export]
-    fn on_picked_up_item(&mut self, _owner: &Spatial, picked_item: Ref<PhysicsBody>) {
+    fn on_picked_up_item(&mut self, _owner: &Node, picked_item: Ref<PhysicsBody>) {
         godot_print!("{}", "Picking up item");
         let picked_item = unsafe { picked_item.assume_safe() };
         let item_id = picked_item.get("id");

@@ -37,7 +37,7 @@ impl PlayerController {
     fn get_camera_direction(&self, owner: &KinematicBody) -> Transform {
         unsafe {
             owner
-                .get_node_as::<Camera>("CameraRotationHelper/Camera")
+                .get_node_as::<Camera>("Camera")
                 .unwrap()
                 .global_transform()
         }
